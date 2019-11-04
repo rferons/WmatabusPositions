@@ -56,9 +56,19 @@ class BusPositions {
                 api_key: '__API_KEY__'
             }
         })
-            .then(results => results.json())
+            .then(results => {
+                if (results.ok) {
+                    results.json()
+                } else {
+                    console.error(results)
+                }
+            })
             .then(body => {
-                return body.BusPositions
+                if (body && body.BusPositions.length > 0) {
+                    return body.BusPositions
+                } else {
+                    throw new Error('No bus positions returned')
+                }
             });
     }
 
