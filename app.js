@@ -53,20 +53,15 @@ class BusPositions {
     getNewBusPositions() {
         return fetch('https://api.wmata.com/Bus.svc/json/jBusPositions', {
             headers: {
-                api_key: '__API_KEY__'
+                api_key: 'ac5fcd90594f4d72bd5cc672bb4f62f3'
             }
         })
-            .then(results => {
-                if (results.ok) {
-                    results.json()
-                } else {
-                    console.error(results)
-                }
-            })
+            .then(results => results.json())
             .then(body => {
                 if (body && body.BusPositions.length > 0) {
                     return body.BusPositions
                 } else {
+                    console.log(body);
                     throw new Error('No bus positions returned')
                 }
             });
